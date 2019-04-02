@@ -1,0 +1,35 @@
+登录电脑
+未列出=>root=>teacher.com
+ctrl+alt+f2
+ctrl+alt+f1
+<用户名@主机名 目录名>#/$
+
+
+一.普通代码指令
+
+1.poweroff  (关机)
+2.reboot    (重启)
+3.hostname  (查看机主名)
+4.touch     (创建目录/文档)
+5.ls        (查看/列出当前文件夹里的内容)
+6.cd        (进入文件夹)
+7.-l:long   (显示完整的格式:如大小/时间)
+8.-d:       (查看目录本身:基本信息)
+9.rm  -r    (删除+文件的名字)
+10.rm  -f   (删除文件/目录 ..不会提示)
+11.touch+/opt/ :(创建文件及文件的名字)
+12.mkdir    (创建目录/目录名字)
+13.mkdir -p/a/b/c/d     +<-p> 可连续建多级目录
+14.cd :change dirctory  (切换目录)+目录名
+15.cd ..   (返回上一级)
+16. cd     (回家目录)
+17.vim     (写+ 文件)
+18. i      (插入) => ESC => :q!   (不保存退出)
+19. i      (插入) =>  ESC  => :wq  (保存退出)
+
+
+二.查看IP地址方式
+
+7.ifconfig  (linux查看IP地址)
+8.ipconfig  (windows查看IP地址)
+
