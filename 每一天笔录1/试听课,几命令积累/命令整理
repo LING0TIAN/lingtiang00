@@ -1,0 +1,352 @@
+登录电脑
+未列出=>root=>teacher.com
+ctrl+alt+f2
+ctrl+alt+f1
+<用户名@主机名 目录名>#/$
+ssh 用户名@ip地址
+
+
+一.普通代码   指令
+0.ifconfig   查看IP地址
+1.poweroff  (关机)
+2.reboot    (重启)
+3.hostname  (查看机主名)  => 空格+名称 可更改主机名
+4.touch     (创建目录/文档)
+5.ls        (查看/列出当前文件夹里的内容)
+6.cd        (进入文件夹)
+7.-l:long   (显示完整的格式:如大小/时间)
+8.-d:       (查看目录本身:基本信息)
+9.rm  -r    (删除+文件的名字)
+10.rm  -f   (删除文件/目录 ..不会提示)
+11.touch+/opt/ :(创建文件及文件的名字)
+   -p    ＋-p 
+  
+12.mkdir    (创建目录/目录名字)
+13.mkdir -p/a/b/c/d     +<-p> 可连续建多级目录
+     
+14.cd :change dirctory  (切换目录)+目录名
+15.cd ..   (返回上一级)
+16. cd     (回家目录)
+17.vim     (写+ 文件)
+18. i      (插入) => ESC => :q!   (不保存退出)
+19. i      (插入) =>  ESC  => :wq  (保存退出)
+20.cp :    (复制)
+21.cp  -r  (源文件  目录  # 复制/拷贝) +/opt/nsd1903/=>要放置的文件 -r 代表递归
+  [root@1903 ~]# cp /etc/passwd  /opt/
+  [root@1903 ~]# ls 
+  anaconda-ks.cfg       nsd01  公共  视频  文档  音乐
+  initial-setup-ks.cfg  nsd04  模板  图片  下载  桌面
+  [root@1903 ~]# ls /opt/
+  2.txt  hh  NB  nsd02  passwd  rh
+  [root@1903 ~]# cp /etc/fstab   /opt/
+  [root@1903 ~]# ls /opt/
+  2.txt  fstab  hh  NB  nsd02  passwd  rh
+  [root@1903 ~]# cp /home/ /opt/
+  cp: 略过目录"/home/"
+  [root@1903 ~]# ls /opt/
+  2.txt  fstab  hh  NB  nsd02  passwd  rh
+  [root@1903 ~]# cp -r /home/ /opt/
+  [root@1903 ~]# ls /opt/
+  2.txt  fstab  hh  home  NB  nsd02  passwd  rh  
+  [root@1903 ~]# 
+[root@1903 ~]# \cp -r /boot/ /opt/
+[root@1903 ~]# \cp -r /boot/ /opt/
+[root@1903 ~]# \cp -r /boot/ /opt/
+
+cp：是否覆盖"/opt/boot/grub2/device.map"？ n
+cp：是否覆盖"/opt/boot/grub2/i386-pc/gcry_rmd160.mod"？ ^C  
+
++  "\"反斜杠  cp =>临时取消别名  cp不会提示是否覆盖
+  cp:复制 cp -r 拷贝复制 的运用
+[root@1903 opt]# rm -rf /opt/*
+[root@1903 opt]# cp /etc/passwd /opt/
+[root@1903 opt]# ls /opt/
+passwd
+[root@1903 opt]# cp -r /boot/ /opt/
+[root@1903 opt]# ls /opt/
+boot  passwd
+[root@1903 opt]# rm  -rf /opt/*
+[root@1903 opt]# cp -r /home/ /opt/test
+[root@1903 opt]# cp -r /home/ /opt/test/
+第一次复制,将
+第二次复制,将
+
+Linux磁盘表示
+
+　hd,表示IDE设备
+　sd,表示SCSI设备
+　vd,表示虚拟设备
+
+　/dev/sda:表示SCSI设备，第一块
+　/dev/sdb:表示SCSI设备，第二块
+　/dev/sdc:表示SCSI设备，第三块
+　/dev/sdd:表示SCSI设备，第四块
+
+
+
+
+22.mv :    (移动)  列如: mv day01.txt /opt/   => ls =>查看 /opt
+                
+   1.创建一个目录,一个文件  =>把文件移动到目录里面
+
+               [root@1903 etc]# mkdir /opt/ns
+                [root@1903 etc]# touch /opt/ns1
+                [root@1903 etc]# ls /opt/
+                2.txt  hh  ns  ns1  nsd02  rh
+                [root@1903 etc]# mv /opt/ns1 /opt/ns
+                [root@1903 etc]# ls /opt/
+                2.txt  hh  ns  nsd02  rh
+                [root@1903 etc]# ls /opt/ns
+                ns1
+                [root@1903 etc]# 
+    
+    2.输入;目录原名 / 改一个名字
+
+     [root@1903 etc]# mv /opt/ns  /opt/NB
+[root@1903 etc]# ls /opt/
+2.txt  hh  NB  nsd02  rh
+[root@1903 etc]# 
+
+
+
+
+24.cat :   (看完整文件)
+25.cat -n a.txt : (内容加上行号)
+4.  pwd   (查看当前在什么位置)
+
+5.-l       (显示详细属性时,加上大小单位)
+ 列如:  (1) 显示年月日/时间显示  =>    
+  [root@1903 ~]# ls -l /etc/redhat-release   =查看内核信息
+  [root@eth0 ~]# ls --version    => 查看版本信息
+
+  [root@1903 ~]# ls -l /etc/passwd =>年月日/时间
+  [root@1903 ~]# ls -l /etc/sysconfig/network-scripts/ifcfg-eth0 
+ (2)
+   [root@1903 ~]# cat --hepl  =>显示所有(包括所有隐藏数据)
+   别名的
+定律 =复杂的命令可用简化别名替代
+
+    [root@1903 ~]# alias  nb='ifconfig' =>设置别名
+    [root@1903 ~]# unalias  nb     =>删除别名
+
+用家目录~useradd
+  [root@nsd1903 /]# useradd tom
+  [root@nsd1903 /]# ls /home
+  lisi  tom
+  [root@nsd1903 /]# useradd dc
+  [root@nsd1903 /]# ls /home
+  dc  lisi  tom
+  [root@nsd1903 /]# cd~dc
+  bash: cd~dc: 未找到命令...
+  [root@nsd1903 /]# cd ~dc
+
+cat：无法识别的选项“--hepl
+”
+Try 'cat --help' for more information.
+[root@1903 ~]# cat --help
+用法：cat [选项]... [文件]...
+ --help   将[文件]或标准输入组合输出到标准输出。
+ 
+
+
+[root@1903 ~]# cat --hepl
+cat：无法识别的选项“--hepl”
+Try 'cat --help' for more information.
+[root@1903 ~]# cat --help
+ 
+     用法：cat [选项]... [文件]...
+   将[文件]或标准输入组合输出到标准输出。
+  
+  -A, --show-all           等于-显示所有
+  -b, --number-nonblank    对非空输出行编号
+  -e                       等于-vE
+  -E, --show-ends          在每行结束处显示"$"
+  -n, --number             对输出的所有行编号
+  -s, --squeeze-blank   
+   不输出多行空行
+  -t                       与-vT 等价
+  -T, --show-tabs          将跳格字符显示为^I
+  -u                       (被忽略)
+  -v, --show-nonprinting   使用^ 和M- 引用，除了LFD和 TAB 之外
+      --help		显示此帮助信息并退出
+      --version		显示版本信息并退出
+
+
+26.head :  (看文件前几行)        列如: head   数字  a.txt  <=中间空格
+27.tail :  (看文件结尾几行)      列如: tail  数字   a.txt   <=中间空格
+28.cd + ;  (目录名 =>进入)
+30.rpm :   (查看包有没有装)
+31.rpm -qa  (包名 : 如果安装了，就显示完整包名)
+32.rpm -ql  )包名： 安装这个包，产生的新的文件
+33.vim README.md   # 创建仓库描述文件 => 这是我云计算的第一个部分
+     
+	]# echo 123456  >  a.txt   # 会覆盖原来的内容
+	]# echo 123456 >> a.txt	   # 追加写入到文件中  
+34.ctrl+c  (可结束当前的操作)
+35.less  (支持查找 =>按 /  输入查找内容 ,看大文件)可用键盘操作 =>  进入之后可"q"键退出
+36.exit 退出终端
+37. cat --help  将[文件]或标准输入组合输出到标准输出。
+38.  logout 注销
+39.nmtui   修改IP地址与子网掩码　
+       [root@A ~]#　nmtui
+　          编辑连接 -->eth0-->编辑ipv4-->显示-->将自动修改手动
+　          -->按空格　勾选　自动连接    　    #每次开机自动生效
+　         -->按空格　勾选　对所有用户有效  
+         nmtui  <= 进入 =>  可以永久设置主机     设置成功后exit退出终端,重启终端
+40.[root@he ~]# ls -l /dev/cdrom    =小写=>  -l 长格式查看文件
+
+41.  创建访问点:
+    [root@he ~]# mkdir /DVD =>创建
+    [root@he ~]# ls
+    [root@he /]# ls /dvd 
+   使用[ mount ]挂载;目录 联系性 
+   [root@he /]# mount /DVD/cdrm
+   [root@he /]# mount /DVD  =>卸载目录,恢复原来空文档互不
+echo => 很单纯的一个输出命令 
+     [root@1903 ~]# echo NSD1903 >> /opt/ls.txt 
+     [root@1903 ~]# cat /opt/ls.txt
+     hhcdshjgfhsakaj
+     NSD1903
+
+
+
+    	
+ 五.查看CPU  命令
+1.lsCPU    
+
+
+上传文件:
+1.git add .   
+   git commit -m "随便写"=文件名字
+   ssh-agentgit push -u origin master
+           注意：文件夹/远程的密钥名称/仓库名称都必须是英文，不能有空格，
+       建错了可以删除重建，
+	如果提示无法读到远程仓库，执行以下命令
+	]# ssh-agent   ==》该命令返回三行代码，粘贴这三行代码在命令行上运行
+	然后再执行下面命令
+	]# git push -u origin master
+	提示有100%的代表成功
+
+   git init	   # 初始化仓库信息.
+   git status	   # 查看仓库状态
+   git add . # 将文件添加到本地仓库 [装车]
+   git commit -m "这是我的第一个文件"
+   git remote rename origin old-origin
+   git remote remove old-origin  
+   git remote   origin
+   git remote add origin git@github.com:MX-Steve/nsd1903_step01.git
+   git push -u origin master
+
+六:IP 自己设置的IP 测试自己  ping=>  (链接) 自己 进入链接成功之后可 ctrl+c 结束运行
+      1.ifconfig eth0 192.168.1.1  =>临时设置IP地址
+      2. ifconfig eth0 
+     3.ping 192.168.1.1
+
+4. mkdir  创建目录+ -p => /a/b/c/d
+ ]# ifconfig  | head -2  | tail -1
+5.head  -2 /etc/passwd 显示头两行内容
+6.tail  -2 /etc/passwd 显示尾两行内容
+7.grep 工具 => 用途:输入包含指定字符串显示出来 =>格式 grep  查找文件
+8. tab 键 可补全命令  忘记命令时 按tab 可显示相关命令
+9.
+
+ls /root/anaconda-ks.cfg cat /root/anaconda-ks.cfg  #查看文件内容
+   cat /etc/passwd　　　#查看文件内容
+   cat /etc/hosts　　　　#查看文件内容
+   cat /etc/fstab　　　　#查看文件内容
+   cat /etc/redhat-release　#查看当前系统版本
+
+   
+
+1.yum :   (管理软件包)源管理使用
+   linux = 内核 + 周边应用[包]
+   /etc/yum.repos.d/xx.repo 软件源配置文件
+   [root@room9pc01 yum.repos.d]# cat CentOS.repo
+		[CentOS7]   ==> 标题/名称
+		name=CentOS 7  ==> 描述信息
+		baseurl=file:///var/ftp/centos-1804
+		enabled=1 ==> 启用，1启用，0 不启用
+		gpgcheck=0 ==> 
+			是否检测完整性，0不检测，1检测
+
+2.    yum list ：     (列出所有的软件包)
+       yum repolist :  (总共有多少软件包)
+	 yum install    (包名 [包2...):安装一个软件包
+	 yum install httpd
+	 yum -y install httpd
+	 yum remove      (包: 删除一个软件包)
+3.baseurl:
+	file:// 本地
+      file:// 本地 /var/ftp/centos-1804 
+      http:// 网站
+	ftp://  ftp
+
+5.ls  -a  : 查看隐藏的文件
+            touch .a.txt
+		mkdir .movie
+
+三.查看IP地址方式
+
+7.ifconfig  (linux查看IP地址)
+8.ipconfig  (windows查看IP地址)
+
+
+四.正确进入目录操作
+1.cd /etc/pki/CA/crl  (#绝对路径)
+2.cd =>文件名             (相对路径)
+
+	
+	                                 
+
+
+二.管道命令
+
+命令1 | 命令2  ： 将前一个命令的结果传递给第二个命令做参数使用
+	
+	[root@room9pc01 opt]# head -5 passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+
+	[root@room9pc01 opt]# head -5 passwd | tail -3 
+
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+
+	[root@room9pc01 opt]# tail -5 passwd | head -3 
+
+tcpdump:x:72:72::/:/sbin/nologin
+apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
+named:x:25:25:Named:/var/named:/sbin/nologin
+
+	]# ifconfig  | head -2  | tail -1
+	]# echo 123456  >  a.txt   # 会覆盖原来的内容
+	]# echo 123456 >> a.txt	   # 追加写入到文件中
+
+		
+	mv 老的文件名   新的文件名
+		cp /etc/yum.repos.d/CentOS.repo /opt/step01/dvd.repo
+		
+		cp /etc/yum.repos.d/CentOS.repo /opt/step01/
+		cd /opt/step01
+		mv CentOS.repo dvd.repo
+		
+		
+练习：
+	1. 一个文件一共有10行，看文件第7至9行		
+	2. 查看本机ip地址，把第二行[带ip]内容存入到自己仓库的
+		preview文件夹里，叫做ip.txt	
+	3. 将/etc/yum.repos.d/CentOS.repo拷贝到自己的仓库目录下，
+		将其改名为 dvd.repo
+	4.将仓库里的内容上传到远程仓库
+
+
+
+
+
+
+
+
