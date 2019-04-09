@@ -1,0 +1,90 @@
+软件包管理
+  零散软件管理
+1.web使用及优化
+ firefox (火狐)
+
+
+下载软件包
+使用wget 下载工具
+wget 
+访问Google   输入:http://classroom.example.com
+ 点击:/content/rhel7.0/x86_64/dvd/Packages/
+ctrl+f  输入:vsftpd
+rpm -p 软件名  (  是否已安装  )
+rpm -p  软件名  ( 是否已安装)
+rpm -ivh 文件名
+
+
+yum 配置及应用
+
+服务  :  为客户端自动解决依赖关系安装软件包
+
+                               1.众多的软件包 
+服务端  : 虚拟机classroom <  2.仓库数据文件
+                               3.构建 web 或 ftp 服务光盘
+
+客户端  : 指定服务端位置 
+   客服端的配置文件:/etc/yum.repos.d/*.repo
+ 先删除"  [root@server0 ~]# rm -rf /etc/yum.repos.d/*
+
+[nsd1903]
+name=rhel7
+baseurl=http://classroom.example.com/content/rhel7.0/x86_64/dvd
+enabled=1
+gpgchek=0
+
+[root@server0 ~]# yum (repolist)命令  =>列出vim新建内容
+已加载插件：langpacks
+nsd1903                                                  | 4.1 kB     00:00     
+(1/2): nsd1903/group_gz                                    | 134 kB   00:00     
+(2/2): nsd1903/primary_db                                  | 3.4 MB   00:00     
+源标识                                源名称                               状态
+nsd1903                               rhel7                                4,305
+repolist: 4,305
+[root@server0 ~]# ( yum install 包名 )命令  =>安装包  +  -y 可以不用回答是否装包        
+   列:  yum  -y install
+
+[root@server0 ~]#( yum remove 包名 )命令  => 删除包   +  -y 可以不用回答是否删除安装包        
+   列:  yum  -y remove
+
+分区规划及使用
+
+1.扇区大小默认认为512字节
+
+硬盘分区管理
+一块硬盘的"艺术"之旅
+
+fdisk /dev/vdb
+
+
+[root@server0 ~]#   (lsblk  命令 )   => 查看分区
+
+
+
+格式化:赋予空间文件系统
+文件
+windows:FAT NTFS
+
+linux: 
+
+
+永久挂载 (开机自动挂载)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
