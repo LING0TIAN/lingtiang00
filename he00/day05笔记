@@ -1,0 +1,26 @@
+利用真机,恢复
+[root@eth0 ~]# rht-vmctl reset classroom
+[root@eth0 ~]# rht-vmctl reset server
+[root@eth0 ~]# rht-vmctl reset desktop
+
+
+
+远程管理
+
+
+
+
+
+查看权限
+-开头 代表[student@eth0 ~]$ ls -l /etc/passwd
+-rw-r--r-- 1 root root 2337 3月   4 12:41 /etc/passwd
+[student@eth0 ~]$ ls -ld /etc/
+drwxr-xr-x. 155 root root 12288 4月   8 08:09 /etc/
+[student@eth0 ~]$ ls -l /etc/passwd
+-rw-r--r-- 1 root root 2337 3月   4 12:41 /etc/passwd
+[student@eth0 ~]$ ls -l /etc/shadow
+---------- 1 root root 1388 3月   4 12:41 /etc/shadow
+[student@eth0 ~]$ ls -ld /tmp/
+drwxrwxrwt. 21 root root 4096 4月   8 11:56 /tmp/
+
+
