@@ -1,0 +1,144 @@
+##########################################################################
+创建逻辑卷 :lvcreate  ==>命令 创建 
+  &: lvcreate 创建逻辑卷
+  &: lvs = 查看逻辑卷剩余空间
+  &: vgs  =>查看卷组的空间
+ 1.查看逻辑卷设备文件
+格式:(lvcreate) -n  逻辑卷名字 vo  -L 16G 已创建的名字
+ 
+   列:[root@server0 ~]# (lvcreate) -n vo -L 16G systemvg
+[root@server0 ~]# ls -l /dev/systemvg/vo  ls查看+  -l  显示详细内容
+/dev/systemvg/vo
+   
+ &: df -h = 查看 文件系统大小  容量  已用  可用 已用% 挂载点
+
+
+2.格式化文件系统,进行挂载
+[root@server0 ~]# mkfs.xfs /dev/systemvg/vo
+[root@server0 ~]# blkid /dev/systemvg/vo
+[root@server0 ~]# vim /etc/fstab 进入输入已下内容:   
+ /dev/systemvg/vo /mylv xfs defaults 0 0
+
+[root@server0 ~]# mount -a
+[root@server0 ~]# df -h
+ 逻辑卷的扩展
+
+---卷组空间没有足够的剩余空间
+ 
+ &: (lvextend) =>
+lvextend -L 18G /dev/systemvg/vo 
+
+2.扩展文件系统的大小 
+扩展:ext4: resizefs
+扩展:xfs_growfs /dev/systemvg/vo
+######################################################################
+
+了解:逻辑卷可以扩展,也可以缩小
+
+
+
+######################################################################
+
+
+卷组划分空间的单位:pE  默认1pE为4M大小
+
+
+[root@server0 ~]# vgdisplay systemvg 显示卷组详细信息
+
+
+创建卷组的时候设置 pE 大小
+
+ &: lvcreate -s PE大小设置
+
+ &: lvcreate -l PE个数
+
+逻辑卷的删除
+ &: lvremove  
+ /dev/systemvg/vo 
+
+[root@server0 ~]# umount /mylv/
+
+
+ 提示:优先删除逻辑卷 ,再删除
+
+
+&:find  {目录 }  -type  { l,d,f }
+
+(  l:快捷方式, d:目录, f:文本文件, )
+
+ -size +| 文件大小(k,M,G,)  百度 EB 单位
+
+[root@server0 ~]#  列:  find /boot/ -size
+-user 用户名  |查找 => [root@server0 ~]#  列:  find / -user student
+            |        [root@server0 ~]#  find /-user student -type f
+[root@server0 ~]# find /boot/ -name 'vm*'  find 支持
+
+
+&: -mtime :查看已过去的时间
+[root@server0 ~]# find /var/log/ -mtime +1000
+
+[root@server0 ~]# ls -l /var/log/
+
+使用 find 命令的  -exec 操作
+find  .... -exec 处理命令 {} \;  遇见\;结束
+ 
+ @ find 查找到的 以{} 表示 cp 到指定的目录里
+[root@server0 ~]# find /boot/ -name 'vm*' -exec cp {} /opt/ \;
+
+
+[root@server0 ~]# find / -user student -type f  -exec cp {} /root/findfiles/ \;
+
+&: => date -s  查看时间以及修改时间
+
+
+[root@server0 ~]# vim /etc/chrony.conf
+server classroom.example.com iburst 
+时间同步:
+[root@server0 ~]# 列: systemctl restart chronyd
+[root@server0 ~]# 列: systemctl enable chronyd
+[root@server0 ~]# systemctl restart chronyd
+[root@server0 ~]# date
+列:一下内容
+[root@server0 ~]# date 1997-5-20 13:14:00
+date: 额外的操作数 "13:14:00"
+Try 'date --help' for more information.
+[root@server0 ~]# date -s '1997-5-20 13:14:00'
+1997年 05月 20日 星期二 13:14:59 CST
+[root@server0 ~]# date
+2019年 04月 10日 星期三 16:42:08 CST
+
+
+daemon 英:di: m
+如何编写 crontab 任务记录
+  分  时  日  月  周  任务命令 (绝对路径)
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
