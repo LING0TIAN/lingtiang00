@@ -1,0 +1,163 @@
+脚本的编辑
+ vim /root/lisi
+ 列出进入编写脚本模式
+#!/bin/bash
+if [ $# -eq 0 ];then
+echo 'usage: /root/batchusers' >&2
+exit2
+elif [ -f $1 ];then
+for a in $(cat $1)
+do
+useradd $a &> /dev/null
+echo $2创建成功
+done
+else
+echo 'Input file not found' >&2
+exit 3
+fi
+
+ESC键  shift + :wq 保存并退出
+              :q!  不保存退出  
+ [root@server0 ~]# 直接进入会显示权限不够   /root/lisi01
+-bash: /root/lisi01: 权限不够
+ [root@server0 ~]#  需要赋予运行权限 =>     chmod -x /root/lisi01
+ 
+@ => SELiux的运行模式  
+ 查询模式:  getenforce 
+ 修改模式:  setenforce 0     注: 修改后需要重新启动虚拟机
+
+1.enforcing (强制) ,
+2.permissive(宽松)
+3.disabled (彻底禁用)
+
+[root@server0 ~]# vim /etc/selinux//config 
+[root@server0 ~]#  查看当前 SELiux 状态 =>  getenforce
+Enforcing
+[root@server0 ~]#  修改当前 SELiux 状态 =>   setenforce 0
+[root@server0 ~]#      getenforce
+Permissive
+
+###############################################################
+
+配置用户环境
+
+
+
+
+
+
+虚拟机server搭建基本web服务
+web 服务:提供一个页面
+1.安装 httpd  包
+firefox  火狐浏览器 
+[root@server0 ~]#    yum -y install httpd   => yum 装包
+[root@server0 /]# systemctl restart [包名] => vsftpd
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+二.构建FTP服务器
+ FTP服务:文件传输服务
+1.安装 vsftpd 服务
+2.默认FTP共享路径 :/var/ftp
+
+[root@server0 /]# yum -y install vsftpd
+[root@server0 /]# systemctl restart vsftpd
+
+[root@server0 /]# vim /var/ftp/mi.sh  
+root@server0 /]#      firefox  <= 火狐浏览器     ftp://172.25.0.11  访问自己的ip地址
+[root@server0 /]#    vim /var/www/html/index.html => 共享之后可成为广告式,移动式广告字
+
+[root@server0 /]# firefox 172.25.0.11
+
+firefox  虚拟机可打开的浏览器  火狐浏览器
+
+
+virsh lisi --all
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+防火墙策略
+ 作用 : 隔离
+
+        硬件防火墙 :  更多的是保护网络的安全
+分类 [  
+        软件防火墙 :  更多的是保护自身主机的安全
+
+linux 的防火墙体系
+ 系统服务:firewalld
+ 管理工具:firewall-cmd firewall-config
+***********************************************************************
+
+预设安全区域
+
+
+
+ firwall-cmd --get-default-zone  => 查看默认区域
+[root@server0 /]#   凭以下网络  ping -c 2 172.25.10     +  -c 2  => 凭两下结束 如果不能凭通 有回应为 2 received, 0%   
+能凭通显示为   +2 errors, 100%  
+
+
+***************************************************************************
+[root@server0 /]# firewall-cmd --set-default-zone=public => 防火墙的查看
+ [root@server0 /]# firewall-cmd --zone=public --add-service=ftp  =>添加协议
+[root@server0 /]# firewall-cmd --lisi-all   => #查看区域规则
+
+在区域添加允许访问的服务或协议
+        http : 超文本传输协议
+       https : 安全超文本传输协议
+         DNS : 域名解析协议
+         FTP : 文件传输协议
+        TFTP : 简单文件传输协议
+      telnet : 远程管理协议
+                 :
+                 :
+        
+
+
+===================================================
+永久的防火墙规则
+[root@server0 /]# firewall-cmd --reload  # 重新加载所有防火墙策略
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
