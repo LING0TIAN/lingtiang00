@@ -1,0 +1,55 @@
+[root@server0 ~]# vim /opt/00.sh
+[root@server0 ~]# /opt/00.sh
+-bash: /opt/00.sh: 权限不够
+解释:上述为何 root 权限不够 无法直接运行文本 需加上 x 可运行命令
+[root@server0 ~]# chmod +x /opt/00.sh
+[root@server0 ~]# /opt/00.sh
+hello warld
+
+简单的脚本技巧
+查看/引用变量
+引用变量值: $ 变量名
+ 变量的种类
+环境变量:
+[root@server0 ~]# 大写的USER =储存当前登录系统的用户=>    echo $USER
+root
+位置变量:
+ 在执行脚本时提供的命令行参数
+ 表示为 $n,n 为序号
+
+vim /root/cat.sh
+#/bin/bash
+read -p'请输入你要创建的用户名:'  a
+useradd he0 &>/dev/null
+echo =$a 创建成功
+echo 123 | passwd --stdin he0 &> /dev/null
+echo =$a 用户密码已设置完毕为:123
+/root/cat.sh 进入
+
+
+-e: echo $? 显示0为真,显示1为假
+-d: echo $? 显示0为,显示1为假
+
+比较整数大小 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
