@@ -1,0 +1,374 @@
+﻿昨日回顾：
+	行业
+	阶段
+		基础
+		运维
+		数据库
+		云架构
+		开发
+	基础命令
+		ls
+			-l 
+			-d
+		touch 
+			touch a.txt
+			touch /opt/a.txt b.txt
+		cat
+			cat a.txt
+			cat /opt/a.txt
+		mkdir
+			mkdir demo
+			mkdir demo1 demo2
+			mkdir -p demo1/demo2 demo3
+		hostname
+			查看主机名
+			hostname 名称  ==>临时
+			/etc/hostname
+		vim
+			vim /opt/a.txt
+				i(插入) --> Esc --> :q! (不保存退出)
+				i(插入) --> Esc --> :wq (保存退出)
+		poweroff 关机
+		reboot 重启
+		查看ip地址
+			ifconfig linux
+			ipconfig windows
+		rm 
+			rm a.txt --> y
+			rm -r 目录
+			rm -rf/f a.txt/demo
+			rm /opt/a.txt /etc/b.txt
+		/ 
+			opt
+			root
+				root/桌面
+			home
+				lisi
+				zhangsan
+				Student
+			etc
+				配置文件
+				hostname
+				passwd
+			dev 设备信息
+		ctrl + alt + f2..6
+		ctrl + alt + f1
+		[ 用户名@主机名 目录~ ] #/$
+		ssh 用户名@ip地址
+		
+		
+=================================
+补充
+	ls  -a  : 查看隐藏的文件
+		touch .a.txt
+		mkdir .movie
+	vim
+		Esc -> : set nu  : 添加行号
+		Esc -> : set nonu : 取消行号
+	ctrl + shift + t
+	firefox &
+	ssh -X root@172.25.0.11
+1.yum源管理使用
+	linux = 内核 + 周边应用[包]
+	/etc/yum.repos.d/xx.repo 软件源配置文件
+	[root@room9pc01 yum.repos.d]# cat CentOS.repo
+		[CentOS7]   ==> 标题/名称
+		name=CentOS 7  ==> 描述信息
+		baseurl=file:///var/ftp/centos-1804
+		enabled=1 ==> 启用，1启用，0 不启用
+		gpgcheck=0 ==> 
+			是否检测完整性，0不检测，1检测
+	baseurl:
+		file:// 本地
+		http:// 网站
+		ftp://  ftp
+	file:// 本地 /var/ftp/centos-1804
+	yum : 管理软件包
+		yum list ： 列出所有的软件包
+		yum repolist : 总共有多少软件包
+		yum install 包名 [包2...] :
+						安装一个软件包
+		]# yum install httpd
+		]# yum -y install httpd
+		yum remove 包名: 删除一个软件包
+	rpm : 查看包有没有装
+		rpm -qa 包名 : 
+				如果安装了，就显示完整包名
+		rpm -ql 包名：
+				安装这个包，产生的新的文件
+3.git 本地仓库，关联远程仓库
+	]# ssh-keygen -t rsa -C "xxx@qq.com"
+		overwrite> y
+	]# cd /root/.ssh/
+	]# cat id_rsa.pub
+		ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/p8VCyHSZhf/kHb45b3XaPT7hKDU9YkFF/22b9VLawnCPTfX8MZ9CjTlIvharZSYRFCM+eANsD2dZTfIapnuAS9WK56ii+wMmzxCvzwYh6nllbrB0t/xQartgJkvT2nAkRUpgR7Tq2h55ErwosLcEZZC3Xq1spLjwBZ4FKlInEQ6Ly3xEZC+2CdGsv9DgpP/yakgMov7rU1uUv6xzGwVVwP5OV3QsDLLuzFZfE1LNJSjuBe1KiTzpokrfcsBR6CFNOoW6oOAipsT5vGHwdTjVqN92zNYLuOPIW3cFcDUQKIpeK7S0d6zC0nLL4HQrRf50UDWtOVgkDRL1KD3PeGGB xxx@qq.com
+	
+	]# cd /opt
+	]# mkdir step01    # 创建仓库文件夹
+	]# cd step01/
+	]# git init	   # 初始化仓库信息
+	]# vim README.md   # 创建仓库描述文件
+		这是我云计算的第一个部分
+	]# git status	   # 查看仓库状态
+
+	]# git add . # 将文件添加到本地仓库 [装车]
+	]# git commit -m "这是我的第一个文件"
+	]# git config --global user.name "MX-Steve"
+	]# git config --global user.email "xxx@qq.com"
+	]# git commit -m "这是我的第一个文件"
+	
+	]# git remote rename origin old-origin
+	]# git remote remove old-origin
+	]# git remote
+	origin
+	]# git remote add origin git@github.com:MX-Steve/nsd1903_step01.git
+	]# git push -u origin master
+排错：
+	注意：文件夹/远程的密钥名称/仓库名称都必须是英文，不能有空格，
+建错了可以删除重建，
+	如果提示无法读到远程仓库，执行以下命令
+	]# ssh-agent   ==》该命令返回三行代码，粘贴这三行代码在命令行上运行
+	然后再执行下面命令
+	]# git push -u origin master
+	提示有100%的代表成功
+	
+		
+===================================================================
+	cp : 复制
+	     cp  -r 源文件  目录  # 复制/拷贝
+	     cp /root/桌面/day01_all.txt     /opt/step01/preview/
+	     cd /opt/step01/preview
+	     ls
+	cd /opt/step01
+	git add .
+	git commit -m "随便写"
+	git push -u origin master
+		ssh-agent
+		git push -u origin master	
+	
+	mv : 移动
+		]# mv day01.txt /opt/
+		]# ls /opt
+	cat : 看完整文件
+		cat -n a.txt : 内容加上行号
+	head : 看文件前几行
+		head -数字 a.txt
+	tail : 看文件结尾几行
+		tail -数字 a.txt
+	[root@A etc]# head -3 passwd
+		root:x:0:0:root:/root:/bin/bash
+		bin:x:1:1:bin:/bin:/sbin/nologin
+		daemon:x:2:2:daemon:/sbin:/sbin/nologin
+
+	[root@A etc]# tail -2 passwd
+		nsd07:x:1012:1014::/home/nsd07:/bin/bash
+		dockerroot:x:989:983:Docker User:/var/lib/docker:/sbin/nologin
+
+	|  : 管道 
+		命令1 | 命令2  ： 将前一个命令的结果传递给第二个命令做参数使用
+	
+	[root@room9pc01 opt]# head -5 passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+
+	[root@room9pc01 opt]# head -5 passwd | tail -3 
+
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin
+
+	[root@room9pc01 opt]# tail -5 passwd | head -3 
+
+tcpdump:x:72:72::/:/sbin/nologin
+apache:x:48:48:Apache:/usr/share/httpd:/sbin/nologin
+named:x:25:25:Named:/var/named:/sbin/nologin
+
+	]# ifconfig  | head -2  | tail -1
+	]# echo 123456  >  a.txt   # 会覆盖原来的内容
+	]# echo 123456 >> a.txt	   # 追加写入到文件中
+
+		
+	mv 老的文件名   新的文件名
+		cp /etc/yum.repos.d/CentOS.repo /opt/step01/dvd.repo
+		
+		cp /etc/yum.repos.d/CentOS.repo /opt/step01/
+		cd /opt/step01
+		mv CentOS.repo dvd.repo
+		
+		
+练习：
+	1. 一个文件一共有10行，看文件第7至9行		
+	2. 查看本机ip地址，把第二行[带ip]内容存入到自己仓库的
+		preview文件夹里，叫做ip.txt	
+	3. 将/etc/yum.repos.d/CentOS.repo拷贝到自己的仓库目录下，
+		将其改名为 dvd.repo
+	4.将仓库里的内容上传到远程仓库
+
+
+
+
+
+
+http://www.tmooc.cn TMOOC达内
+手机上浏览器搜索,danneiyunzhijia.com
+
+
+		
+牛犇老师
+
+第一阶段课程内容共19天
+
+ 云计算系统管理	
+	DAY01	开学典礼、云计算介绍、TCP/IP协议及配置		
+	DAY02	Linux系统简介、安装RHEL7系统、RHEL7基本操作	
+	DAY03	命令行基础、 目录和文件管理	、  教学环境介绍
+	DAY04	软件包管理、配置网络、文本/文件查找	
+	DAY05	管理用户和组、tar备份与恢复、NTP时间同步、cron计划任务
+	DAY06	权限和归属、使用LDAP认证、家目录漫游
+	DAY07	综合串讲	、综合练习	
+		
+ 云计算应用管理	
+	DAY01	分区规划及使用、LVM逻辑卷		
+	DAY02	Shell脚本基础、使用变量、条件测试及选择、列表式循环
+	DAY03	系统安全保护、配置用户环境	、配置高级连接、防火墙策略管理	
+	DAY04	配置SMB共享、配置NFS共享		
+	DAY05	ISCSI共享存储、数据库服务基础、管理表数据	
+	DAY06	HTTP服务基础、网页内容访问、部署动态网站	
+	DAY07	综合串讲	、综合练习
+		
+ 系统&服务管理进阶	
+	DAY01	扩展的几个应用、发布网络YUM源、vim编辑技巧、源码编译安装、systemctl控制
+	DAY02	DNS服务基础、特殊解析、DNS子域授权、缓存DNS
+	DAY03	Split分离解析、RAID磁盘阵列、进程管理、日志管理
+	DAY04	批量装机环境、配置PXE引导、kickstart自动应答	
+	DAY05	rsync同步操作、inotify实时同步、Cobbler网络装机			
+		
+苹果系统创造史	
+unix/linux发展史 1970 1.1
+
+linux之父:linus torwalds
+1991年10月 发布0.02版(第一个公开)内核
+1994年03月 发布1.0 版内核
+
+
+
+
+
+
+##################################################################################################
+
+  准备笔记本与笔，先讲解后练习，勤奋的练习
+###################################################################
+
+Win2008虚拟机:  
+            密码为  Taren1
+
+
+什么是服务器
+• 能够为其他计算机提供服务的更高级的电脑
+
+典型服务模式
+• C/S,Client/Server架构
+– 由服务器提供资源或某种功能
+– 客户机使用资源或功能
+
+
+################################################################
+TCP/IP协议及配置
+• TCP/IP是最广泛支持的通信协议
+
+
+• 主机与主机之间通信的三个要素
+– IP地址(IP address)
+– 子网掩码(subnet mask)
+IP地址的概述
+• 作用:用来标识一个主机的网络地址
+
+• 地址组成(点分十进制):
+– 一共32个二进制位
+– 表示为4个十进制数,以 . 隔开
+
+• IP地址的分类
+• 用于一般计算机网络
+– A类:1 ~ 127           网+主+主+主
+– B类:128 ~ 191       网+网+主+主
+– C类:192 ~ 223       网+网+网+主
+• 组播及科研专用
+– D类:224 ~ 239 组播
+– E类:240 ~ 254 科研
+##################################################### 
+IP地址的组成: 网络位 与 主机位
+
+ 网络位: 标识 网络 或者 区域 
+ 主机位: 标示 在该区域的第几台主机
+
+子网掩码:用来标识ip地址的网络位与主机位
+             二进制的1标识网络位 0标识主机位
+
+• 默认子网掩码
+– A类地址,255.0.0.0
+– B类地址,255.255.0.0
+– C类地址,255.255.255.0
+
+
+#################################################
+ip地址：手工配置 与 
+            自动获取（dhcp配置 前提网络中必须要自动分配ip地址的服务器）
+
+– 右击桌面网络 ---->属性 ---->更改适配器设置
+
+– 双击“本地连接” ---->属性
+
+– 双击“Internet协议版本4(TCP/IPv4)”
+
+– 配置完成后,单击“确定”完成
+
+配置Win2008虚拟机，IP地址与子网掩码
+  IP:192.168.10.1  
+   子网掩码：255.255.255.0
+
+   192.168.10.1/24 ------->24个网络位
+
+#######################################################
+虚拟机克隆：完全复制一台虚拟机
+
+1.关闭虚拟机win2008
+2.右击虚拟机win2008-----》克隆-----》左击右下角 克隆
+
+3.配置虚拟机win2008-clone
+  – 右击桌面网络 ---->属性 ---->更改适配器设置
+  – 双击“本地连接” ---->属性
+  – 双击“Internet协议版本4(TCP/IPv4)”
+  – 配置完成后,单击“确定”完成
+
+     192.168.10.2/24
+###################################################
+ ping命令测试计算机之间通信
+
+ 左下角 开始------->运行------->cmd------>确定
+
+ 两台虚拟机关闭windows防火墙
+  – 右击桌面网络 ---->属性 ---->  Windows防火墙----->打开和关闭windows防火墙 
+ 
+######################################################
+  ipconfig  windows系统查看本机网络配置命令
+
+######################################################
+
+了解内容：
+
+  网关地址：
+ • 什么是网关?
+  – 从一个网络连接到另一个网络的“关口”
+  – 不同网络之间通信
+  – 不同网络之间通信借助路由器设备
+
+ DNS服务器地址：域名的服务器
+         将域名解析为对应服务器的ip地址
+#####################################################
+
+	
+		
