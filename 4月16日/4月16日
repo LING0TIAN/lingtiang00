@@ -1,0 +1,96 @@
+每天打开虚拟机
+[root@server0 ~]# firewall-cmd --set-default-zone=trusted
+success
+
+[root@server0 ~]# rpm -q nfs-utils     #检查 nfs-utils  是否已安装
+nfs-utils-1.3.0-0.el7.x86_64
+[root@server0 ~]# mkdir /public    #创建
+[root@server0 ~]# echo 123 > /public/1.txt   重定向  >
+[root@server0 ~]# ls /public     #查看内容
+1.txt
+
+##############################################################################
+开机自动挂载
+  _:netdev:声明为网络设备
+开机启动Linux 系统时,首先具备网络参数后,在进行挂载本设备
+
+[root@desktop0 ~]# vim /etc/fstab    # vim 创建 => /etc/fstab
+[root@desktop0 ~]# ls /etc/fstab      #查看/etc/fstab
+/etc/fstab
+[root@desktop0 mnt]# showmount -e 172.25.0.11   #查看IP地址共享的内容
+
+[root@desktop0 ~]# mount 172.25.0.11:/public /mnt/nfs  => 把IP地址共享的内容挂载到  /mnt/nfs 
+[root@desktop0 /]# mount 172.25.0.11: /nsd  /mnt/tast/ => 把IP地址共享的内容挂载到 /mnt/tast/
+
+
+[root@desktop0 ~]# umount /mnt/nfs     #取消挂载
+[root@desktop0 ~]# df -h             #查看文件系统 
+
+[root@desktop0 ~]# mount -a    检查格式是否正确[root@server0 ~]# vim /etc/httpd/conf.d/nsd01.conf
+
+
+
+###########################################################################
+web服务的基本内容
+提供默认配置
+虚拟机server0
+<VirtualHost  *:80>
+ServerName server0.example.com
+DocumentRoot /var/w
+<VirtualHost  *:80>
+ServerName www0.example.com
+DocumentRoot /var/www/baidu
+</VirtualHost>
+
+
+[root@server0 ~]# mkdir /var/www/qq /var/www/baidu
+[root@server0 ~]# echo '企鹅' > /var/www/qq/index.html
+[root@server0 ~]# echo '百度' > /var/www/baidu/index.html
+[root@server0 ~]# systemctl restart httpd
+
+
+
+
+
+
+#############################################################################
+
+默认情况下必须通过用户验证可以访问
+专门用于Samba共享服务,验证的用户:Samba共享账号
+
+[root@server0 ~]# useradd -s /sbin/nologin harry
+
+[root@server0 ~]# pdbedit -a harry
+new password:
+
+*********************************************************************************
+修改配置文件
+[root@server0 ~]# vim /etc/samba/smb.conf
+[root@server0 ~]# mkdir /common
+[root@server0 ~]# echo 123 > /common/123.txt
+[root@server0 ~]# ls /common
+123.txt
+[root@server0 ~]# systemctl restart smb   #
+
+修改配置文件修改 SELinux 策略
+[root@server0 ~]# getenforce   #修改SELinux策略
+Enforcing
+[root@server0 ~]# setenforce    # 修改为宽松模式
+usage:  setenforce [ Enforcing | Permissive | 1 | 0 ]
+[root@server0 ~]# setenforce 
+usage:  setenforce [ Enforcing | Permissive | 1 | 0 ]
+[root@server0 ~]# setenforce 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
