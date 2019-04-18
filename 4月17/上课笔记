@@ -1,0 +1,67 @@
+虚拟web主机与页面显示
+
+[root@server0 /]# less   <= 查看详细属性    /etc/httpd/conf/httpd.conf    #主配置文件
+
+
+
+
+****************************************************************************************************************
+修改SElinux策略,安全上下文(标签)
+ [root@server0 /]# getenforce 
+Enforcing
+[root@server0 /]# setenforce 0
+[root@server0 /]# getenforce 
+
+
+
+***************************************************************************************************************
+部署动态网站
+
+静态网站
+ 文本 (txt /html)  图片(jpg/png)
+等静态
+
+动态网站
+pgp网页  python网页, jsp网页
+
+http://classroom/pub/tls/certs/server0.crt
+
+http://classroom/pub/materials/webinfo.wsgi
+http://classroom/pub/tls/certs/server0.pem
+
+http://classroom/pub/tls/certs/server0.crt
+2.实现客户端方便问,设置网页跳转(网页别名 )
+
+
+
+3.
+4.安装mod_ssl软件实现加密文本传输
+[root@server0 private]# yum install mod_ssl
+
+[root@server0 private]# ls /etc/httpd/conf.d
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

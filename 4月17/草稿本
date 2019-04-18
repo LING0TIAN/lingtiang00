@@ -1,0 +1,44 @@
+[root@server0 ~]# firewall-cmd --set-default-zone=trusted 
+success
+
+[root@server0 ~]# mkdir /var/www/web01
+[root@server0 ~]# mkdir /var/www/web02
+[root@server0 ~]# mkdir /var/www/web03
+
+[root@server0 ~]# systemctl restart httpd
+
+[root@server0 ~]# echo '大圣归来' > /var/www/web01/index.html
+[root@server0 ~]# echo '大圣再归来' > /var/www/web02/index.html
+[root@server0 ~]# echo '大圣累了' > /var/www/web03/index.html
+ 
+[root@server0 ~]# vim /etc/httpd/conf.d/nsd01.conf
+<VirtualHost  *:80>
+  ServerName   www0.example.com
+  DocumentRoot  /var/www/web01
+</VirtualHost>
+<VirtualHost  *:80>
+  ServerName   server0.example.com
+  DocumentRoot  /var/www/web02/index.html
+</VirtualHost>
+<VirtualHost  *:80>
+  ServerName   webapp0.example.com
+  DocumentRoot  /var/www/web03
+</VirtualHost>
+
+
+[root@server0 ~]# cd /var/www/web03
+[root@server0 web03]# wget http://classroom.example.com/pub/materials/webinfo.wsgi
+--2019-04-17 12:36:14--  http://classroom.example.com/pub/materials/webinfo.wsgi
+正在解析主机 classroom.example.com (classroom.example.com)... 172.25.254.254
+正在连接 classroom.example.com (classroom.example.com)|172.25.254.254|:80... 已连接。
+已发出 HTTP 请求，正在等待回应... 200 OK
+长度：397
+正在保存至: “webinfo.wsgi”
+
+100%[======================================>] 397         --.-K/s 用时 0s      
+
+2019-04-17 12:36:14 (80.2 MB/s) - 已保存 “webinfo.wsgi” [397/397])
+
+[root@server0 web03]# systemctl restart httpd
+
+

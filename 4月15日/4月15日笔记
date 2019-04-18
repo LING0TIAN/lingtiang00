@@ -1,0 +1,67 @@
+虚拟机 (server0)把防火墙设为允许访问
+
+[root@server0 ~]# firewall-cmd --set-default-zone=trusted 
+success
+虚拟机 (desktop0)把防火墙设为允许访问
+[root@desktop0 ~]# firewall-cmd --set-default-zone=trusted
+success
+服务端:虚拟机 server 
+一.所需软件 需要安装 =>  targetcli    yum进行安装
+[root@server0 ~]# yum -y install targetcli
+二.运行 targetcli 进行配置
+  /> ls
+1.创建后端存储 (backstore)
+/> backstores/block create name=nsd dev=/dev/vdb1
+/> exit 可自动保存退出
+
+
+2.创建 target  ,磁盘组(木制的箱子)
+[root@server0 ~]# targetcli
+/> iscsi/ create iqn.2019-04.com.example:server0
+Created target iqn.2019-04.com.example:server0.
+Created TPG 1.
+/> ls
+
+3.配置lun关联(将后端存放入磁盘组)
+/> iscsi/iqn.2019-04.com.example:server0/tpg1/
+ls
+4.
+5.
+客户端: 虚拟机  desktop 访问使用服务端提供磁盘空间
+
+安装
+一.
+二.修改配置文件,指定客户端生成的命令 服务端
+[root@desktop0 ~]# vim /etc/iscsi/initiatorname.iscsi 
+InitiatorName=iqn.2019-04.com.exaample:desktop
+~                                               
+三.
+/iscsi> iqn.2019-04.com.example:server0/tpg1/acls create iqn.2019-04.com.exaample:desktop
+Created Node ACL for iqn.2019-04.com.exaample:desktop
+Created mapped LUN 0.
+
+
+
+四.客户端
+[root@desktop0 ~]# lsblk
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+vda    253:0    0  10G  0 disk 
+└─vda1 253:1    0  10G  0 part /
+vdb    253:16   0  10G  0 disk 
+
+五.
+[root@desktop0 ~]# yum repolist
+[root@desktop0 ~]# yum -q iscsi-initiator-utils
+
+以下是客户端访问成功,可查找到服务端的文件
+[root@desktop0 ~]# iscsiadm --mode discoverydb --type sendtargets --portal 172.25.0.11 --discover
+172.25.0.11:3260,1 iqn.2019-04.com.example:server0
+
+关闭防火墙
+[root@desktop0 ~]# systemctl restart iscsi
+[root@desktop0 ~]# systemctl enable iscsi
+
+
+
+
+

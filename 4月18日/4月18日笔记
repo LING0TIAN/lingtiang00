@@ -1,0 +1,93 @@
+
+1.
+
+[root@server0 ~]# rpm -q postfix    # 查看 postfix 是否已安装
+postfix-2.10.1-6.el7.x86_64
+[root@server0 ~]# 
+2.修改配置文件
+[root@server0 ~]# vim /etc/postfix/main.cf    进入修改配置文件
+vim 末行模式 :set nu  => 添加行号     set nonu   => 取消行号
+ 99 #myorigin = server0.example.com         #默认补全邮箱账号后缀
+
+116 inet_interfaces = all                  #本机所有网卡都提供邮件服务
+
+164 mydestination = server0.example.com    #判断为本域邮件依据
+收件人:xln@server0.example.com
+3.重启postfix邮件服务
+
+[root@server0 ~]# systemctl restart postfix
+
+[root@server0 ~]# useradd yg
+[root@server0 ~]# useradd xln
+[root@server0 ~]# mail -s 'test01'-r yg xln  
+haha xixi hehe lele               
+.
+EOT
+
+
+###############################################################################################
+
+准备交换分区
+交换空间(虚拟内存) :缓存内存不足
+mkswap    swapon   swapoff     swap
+parted分区工具(划分GPT分区模式)
+
+  [root@server0 ~]# parted /dev/vdb  
+GNU Parted 3.1
+使用 /dev/vdb
+Welcome to GNU Parted! Type 'help' to view a list of commands.
+
+(parted) mktable gpt    #初始化磁盘,不能重复                                                    
+(parted) mktabrt        
+(parted) mkpart     #划分新的分区
+分区名称？  []? xfs       分区名字
+文件系统类型？  [ext2]? xfs     随便定义名称
+                                   
+起始点？ 0                                                                
+结束点？ 2G
+
+
+
+[root@server0 ~]# nmcli connection  show                                  
+名称         UUID                                  类型            设备 
+System eth0  5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03  802-3-ethernet  eth0 
+[root@server0 ~]# nmcli connection modify 'system eth0'ipv6.method manual ipv6. addresser 2003:ac18::305/64 connection.autoconnct yes
+
+[root@server0 ~]# nmcli connection up 'System eth0'
+
+
+链路聚合
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
